@@ -1,0 +1,64 @@
+<launch>
+
+   <arg name="dt" value="0.5" />
+   <arg name="num_opt_points" value="6" />
+
+
+  <arg name="start_x" value="0.0"/>
+  <arg name="start_y" value="0.0"/>
+  <arg name="start_z" value="1"/>
+  <arg name="start_yaw" value="$(eval -pi/4)"/>
+
+  <arg name="middle_x" value="0.0"/>
+  <arg name="middle_y" value="0.0"/>
+  <arg name="middle_z" value="1"/>
+  <arg name="middle_yaw" value="$(eval -pi/4)"/>
+
+  <arg name="stop_x" value="17.6"/>
+  <arg name="stop_y" value="5.06"/>
+  <arg name="stop_z" value="1.0"/>
+  <arg name="stop_yaw" value="$(eval -pi/4)"/>
+
+
+<!--   <node pkg="ewok_simulation" type="pcNoise" name="pcNoise">
+        <param name="noise" value="0.2"/>
+    </node> -->
+
+  <node name="bspline_controller_rishabh" pkg="ewok_simulation" type="bspline_controller_rishabh" output="screen">
+      <param name="dt" value="$(arg dt)" />
+      <remap from="odometry" to="/mavros/local_position/odom" /> 
+    </node>
+
+    <!-- <node name="trajectory_replanning_pointcloud" pkg="ewok_simulation" type="trajectory_replanning_pointcloud" output="screen"> -->
+
+    <node name="trajectory_replanning_rishabh" pkg="ewok_simulation" type="trajectory_replanning_rishabh" output="screen">
+
+      <param name="dt" value="$(arg dt)" />
+      <param name="num_opt_points" value="$(arg num_opt_points)" />
+
+      <param name="start_x" value="$(arg start_x)" />
+      <param name="start_y" value="$(arg start_y)" />
+      <param name="start_z" value="$(arg start_z)" />
+      <param name="start_yaw" value="$(arg start_yaw)" />
+
+      <param name="middle_x" value="$(arg middle_x)" />
+      <param name="middle_y" value="$(arg middle_y)" />
+      <param name="middle_z" value="$(arg middle_z)" />
+      <param name="middle_yaw" value="$(arg middle_yaw)" />
+
+      <param name="stop_x" value="$(arg stop_x)" />
+      <param name="stop_y" value="$(arg stop_y)" />
+      <param name="stop_z" value="$(arg stop_z)" />
+      <param name="stop_yaw" value="$(arg stop_yaw)" />
+    </node>
+
+
+<node pkg="tf" type="static_transform_publisher" name="mapWorldTF_broadcaster" args="0 0 0 0 0 0 world map 100" />
+
+<node pkg="tf" type="static_transform_publisher" name="camTF_broadcaster" args="0 0 0 -1.57 0 -1.57  base_link camera_link 100" />
+
+<node pkg="ewok_simulation" type="pubCamPose" name="pubCamPose"/>
+
+<node type="rviz" name="rviz" pkg="rviz" args="-d $(find ewok_simulation)/rviz/simulation_rishabh.rviz" />
+
+</launch>

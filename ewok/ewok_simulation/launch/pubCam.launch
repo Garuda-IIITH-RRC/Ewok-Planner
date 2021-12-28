@@ -1,0 +1,18 @@
+<launch>
+
+<!-- transform from local_origin_ned to map-->
+<!-- <node pkg="tf" type="static_transform_publisher" name="mapTF_broadcaster" args="0 0 0 0 0 0 1 local_origin_ned map 100" /> -->
+
+<node pkg="tf" type="static_transform_publisher" name="mapWorldTF_broadcaster" args="0 0 0 0 0 0 world map 100" />
+
+
+<!-- conversion from camera frame to base link frame (align camera X-Y-Z axes with that of Mavros)-->
+<node pkg="tf" type="static_transform_publisher" name="camTF_broadcaster" args="0 0 0 -1.57 0 -1.57  base_link camera_link 100" />
+
+<!-- Publish camera pose in world frame (read from EKF pose estimates and published over TF for octomap generation)-->
+<node pkg="ewok_simulation" type="pubCamPose" name="pubCamPose"/>
+
+    <!-- <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" /> -->
+    <!-- <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" /> -->
+
+</launch>
