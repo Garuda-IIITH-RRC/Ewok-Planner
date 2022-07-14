@@ -29,9 +29,9 @@
       <remap from="odometry" to="/mavros/local_position/odom" /> 
     </node>
 
-    <!-- <node name="trajectory_replanning_pointcloud" pkg="ewok_simulation" type="trajectory_replanning_pointcloud" output="screen"> -->
+    <node name="trajectory_replanning_pointcloud" pkg="ewok_simulation" type="trajectory_replanning_pointcloud" output="screen">
 
-    <node name="trajectory_replanning_rishabh" pkg="ewok_simulation" type="trajectory_replanning_rishabh" output="screen">
+   <!-- <node name="trajectory_replanning_rishabh" pkg="ewok_simulation" type="trajectory_replanning_rishabh" output="screen"> -->
 
       <param name="dt" value="$(arg dt)" />
       <param name="num_opt_points" value="$(arg num_opt_points)" />
