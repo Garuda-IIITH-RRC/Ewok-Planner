@@ -180,9 +180,13 @@ TYPED_TEST(UniformBSpline3DOptimizationTest, TestCollisionDerivatives)
   spline_opt.setControlPointOptimizationStartIdx(11);
 
 
+  // // Set up collision buffer
+  ewok::EuclideanDistanceRingBuffer<POW>::Ptr edrb(new ewok::EuclideanDistanceRingBuffer<POW>(0.15, 1));
+  ewok::EuclideanDistanceRingBuffer<POW>::PointCloud cloud;
+
   // Set up collision buffer
-  ewok::EuclideanDistanceRingBuffer<6>::Ptr edrb(new ewok::EuclideanDistanceRingBuffer<6>(0.15, 1));
-  ewok::EuclideanDistanceRingBuffer<6>::PointCloud cloud;
+  // ewok::EuclideanDistanceRingBuffer<7>::Ptr edrb(new ewok::EuclideanDistanceRingBuffer<7>(0.15, 1));
+  // ewok::EuclideanDistanceRingBuffer<7>::PointCloud cloud;
 
   for(float z = -2; z < 2; z += 0.05) {
   cloud.push_back(Eigen::Vector4f(0, 0.2, z, 0));

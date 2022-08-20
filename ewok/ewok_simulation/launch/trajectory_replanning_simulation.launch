@@ -32,7 +32,7 @@
     <arg name="paused" value="$(arg paused)"/>
     <!-- <arg name="gui" value="false"/> -->
     <arg name="verbose" default="false"/>
-    <arg name="gui" default="false"/>
+    <arg name="gui" default="true"/>
   </include>
 
   <group ns="$(arg mav_name)">

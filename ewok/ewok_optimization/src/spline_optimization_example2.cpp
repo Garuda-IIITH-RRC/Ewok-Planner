@@ -48,7 +48,8 @@ int main(int argc, char **argv) {
   const int num_points = 7;
 
   Eigen::Vector3d start_point(-5, -5, 0), end_point(5, 5, 0);
-  ewok::UniformBSpline3DOptimization<6> spline_opt(start_point, 0.5);
+  ewok::UniformBSpline3DOptimization<POW> spline_opt(start_point, 0.5);
+  //ewok::UniformBSpline3DOptimization<7> spline_opt(start_point, 0.5);
 
   for (int i = 0; i < num_points; i++) {
     spline_opt.addControlPoint(Eigen::Vector3d::Random() * 5);

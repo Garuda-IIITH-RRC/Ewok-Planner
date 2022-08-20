@@ -103,7 +103,7 @@ private:
 
 
 
-const static int POW = 6;
+//const static int POW = 6;
 
 ros::Publisher occ_marker_pub, free_marker_pub, dist_marker_pub, octomap_pub;
 
