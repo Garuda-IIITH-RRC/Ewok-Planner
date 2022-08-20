@@ -24,10 +24,6 @@
 #include <ros/ros.h>
 #include <ewok/ed_ring_buffer.h>
 
-
-static const int POW = 6;
-static const int N = (1 << POW);
-
 int main(int argc, char** argv) {
 
     ros::init(argc, argv, "rolling_buffer_test");

@@ -46,9 +46,6 @@
 #include <ewok/polynomial_3d_optimization.h>
 #include <ewok/uniform_bspline_3d_optimization.h>
 
-
-const int POW = 6;
-
 double dt ;
 int num_opt_points;
 
@@ -59,7 +56,8 @@ std::ofstream f_time, opt_time;
 
 ewok::PolynomialTrajectory3D<10>::Ptr traj;
 ewok::EuclideanDistanceRingBuffer<POW>::Ptr edrb;
-ewok::UniformBSpline3DOptimization<6>::Ptr spline_optimization;
+ewok::UniformBSpline3DOptimization<POW>::Ptr spline_optimization;
+//ewok::UniformBSpline3DOptimization<7>::Ptr spline_optimization;
 
 ros::Publisher occ_marker_pub, free_marker_pub, dist_marker_pub, trajectory_pub, current_traj_pub;
 tf::TransformListener * listener;
@@ -319,7 +317,8 @@ int main(int argc, char** argv){
 
     }
 
-    spline_optimization.reset(new ewok::UniformBSpline3DOptimization<6>(traj, dt));
+    spline_optimization.reset(new ewok::UniformBSpline3DOptimization<POW>(traj, dt));
+    //spline_optimization.reset(new ewok::UniformBSpline3DOptimization<7>(traj, dt));
 
     for (int i = 0; i < num_opt_points; i++) {
         spline_optimization->addControlPoint(Eigen::Vector3d(start_x, start_y, start_z));

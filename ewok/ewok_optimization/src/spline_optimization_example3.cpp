@@ -71,9 +71,12 @@ int main(int argc, char **argv) {
 
   global_traj_pub.publish(traj_marker);
 
-  // Set up collision buffer
-  ewok::EuclideanDistanceRingBuffer<6>::Ptr edrb(new ewok::EuclideanDistanceRingBuffer<6>(0.15, 1));
-  ewok::EuclideanDistanceRingBuffer<6>::PointCloud cloud;
+  // // Set up collision buffer
+  ewok::EuclideanDistanceRingBuffer<POW>::Ptr edrb(new ewok::EuclideanDistanceRingBuffer<POW>(0.15, 1));
+  ewok::EuclideanDistanceRingBuffer<POW>::PointCloud cloud;
+
+  // ewok::EuclideanDistanceRingBuffer<7>::Ptr edrb(new ewok::EuclideanDistanceRingBuffer<7>(0.15, 1));
+  // ewok::EuclideanDistanceRingBuffer<7>::PointCloud cloud;
 
   for(float z = -2; z < 2; z += 0.05) {
     cloud.push_back(Eigen::Vector4f(0, 0.1, z, 0));
@@ -98,7 +101,8 @@ int main(int argc, char **argv) {
   const double dt = 0.5;
 
   Eigen::Vector3d start_point(-5, -5, 0), end_point(5, 5, 0);
-  ewok::UniformBSpline3DOptimization<6> spline_opt(traj, dt);
+  ewok::UniformBSpline3DOptimization<POW> spline_opt(traj, dt);
+  // ewok::UniformBSpline3DOptimization<7> spline_opt(traj, dt);
 
   for (int i = 0; i < num_points; i++) {
     spline_opt.addControlPoint(vec[0]);

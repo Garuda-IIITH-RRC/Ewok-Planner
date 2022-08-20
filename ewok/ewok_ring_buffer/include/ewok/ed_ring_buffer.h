@@ -29,6 +29,19 @@
 #include <vector>
 #include <deque>
 
+// #include <ros/ros.h>
+// #include <ros/package.h>
+
+// ros::init("ed_ring_buffer");
+// ros::NodeHandle nh;
+// ros::NodeHandle pnh("~");
+// pnh.param("POW", const int POW, 6);  // EuclideanDistanceRingBuffer or UniformBSpline3DOptimization
+
+// CHANGE HERE FOR CIRCULAR BUFFER SIZE
+
+static const int POW = 7; // default(min): 6, max for NUC is 7
+static const int N = (1 << POW);
+
 namespace ewok {
 
 template<int _POW, typename _Datatype = int16_t,

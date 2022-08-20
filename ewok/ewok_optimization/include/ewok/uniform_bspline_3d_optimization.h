@@ -119,9 +119,13 @@ class UniformBSpline3DOptimization {
     }
   }
 
-  void setDistanceBuffer(EuclideanDistanceRingBuffer<6>::Ptr & edrb) {
+  void setDistanceBuffer(EuclideanDistanceRingBuffer<POW>::Ptr & edrb) {
     edrb_ = edrb;
   }
+
+  // void setDistanceBuffer(EuclideanDistanceRingBuffer<7>::Ptr & edrb) {
+  //   edrb_ = edrb;
+  // }
 
   void addControlPoint(const Vector3 &point, int num = 1) {
     for (int i = 0; i < num; i++) {
@@ -627,7 +631,9 @@ class UniformBSpline3DOptimization {
 
   std::shared_ptr<nlopt::opt> optimizer, trajectory_time_optimizer;
 
-  EuclideanDistanceRingBuffer<6>::Ptr edrb_;
+  EuclideanDistanceRingBuffer<POW>::Ptr edrb_;
+  // EuclideanDistanceRingBuffer<7>::Ptr edrb_;
+
 
   ewok::PolynomialTrajectory3D<10>::Ptr trajectory_;
 

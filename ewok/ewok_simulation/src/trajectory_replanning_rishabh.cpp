@@ -21,8 +21,6 @@
 * along with Ewok. If not, see <http://www.gnu.org/licenses/>.
 */
 
-
-
 #include <thread>
 #include <chrono>
 #include <map>
@@ -45,9 +43,7 @@
 
 #include <ewok/polynomial_3d_optimization.h>
 #include <ewok/uniform_bspline_3d_optimization.h>
-#include<random> 
-
-const int POW = 6;
+#include <random> 
 
 double dt ;
 int num_opt_points;
@@ -71,7 +67,8 @@ std::ofstream f_time, opt_time;
 
 ewok::PolynomialTrajectory3D<10>::Ptr traj;
 ewok::EuclideanDistanceRingBuffer<POW>::Ptr edrb;
-ewok::UniformBSpline3DOptimization<6>::Ptr spline_optimization;
+ewok::UniformBSpline3DOptimization<POW>::Ptr spline_optimization;
+//ewok::UniformBSpline3DOptimization<POW>::Ptr spline_optimization;
 
 ros::Publisher occ_marker_pub, free_marker_pub, dist_marker_pub, trajectory_pub, current_traj_pub;
 tf::TransformListener * listener;
@@ -378,7 +375,8 @@ int main(int argc, char** argv){
 
     }
 
-    spline_optimization.reset(new ewok::UniformBSpline3DOptimization<6>(traj, dt));
+    spline_optimization.reset(new ewok::UniformBSpline3DOptimization<POW>(traj, dt));
+    //spline_optimization.reset(new ewok::UniformBSpline3DOptimization<POW>(traj, dt));
 
     for (int i = 0; i < num_opt_points; i++) {
         spline_optimization->addControlPoint(Eigen::Vector3d(start_x, start_y, start_z));
@@ -432,5 +430,8 @@ int main(int argc, char** argv){
 
 // 4. KEEP num_opt_points 5 TO 10
 
-// 5. DECERASE  euclidian_distance; KEEP 1 TO 2
+// 5. DECREASE  euclidian_distance; KEEP 1 TO 2
 // If (euclidian_distance < 1.5)
+
+// 6. INCREASE CIRCULAR BUFFER SIZE; MIN IS 6, MAX FOR NUC IS &
+//      static const int POW in ewok_ring_buffer/include/ewok/ed_ring_buffer.h
